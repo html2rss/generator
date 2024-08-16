@@ -7,18 +7,18 @@ module Html2rss
     class FilesAndPaths
       attr_reader :config_name, :config_dir
 
+      ##
+      # @return [String]
+      def self.gem_root
+        File.expand_path(File.join(__dir__, '../../../..'))
+      end
+
       def initialize(config_name, config_dir)
         raise 'config_name is required' if config_name.to_s == ''
         raise 'config_dir is required' if config_dir.to_s == ''
 
         @config_name = config_name
         @config_dir = config_dir
-      end
-
-      ##
-      # @return [String]
-      def self.gem_root
-        File.expand_path(File.join(__dir__, '../../../..'))
       end
 
       ##

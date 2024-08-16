@@ -4,7 +4,7 @@ require 'json'
 require 'nokogiri'
 require 'yaml'
 
-require_relative './print_helper'
+require_relative 'print_helper'
 
 module Html2rss
   module Generator

@@ -2,7 +2,7 @@
 
 require 'faraday'
 
-require_relative './question'
+require_relative 'question'
 
 module Html2rss
   module Generator
