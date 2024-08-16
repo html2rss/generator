@@ -8,6 +8,12 @@ module Html2rss
     class ItemExtractorQuestion
       attr_reader :prompt, :state, :options
 
+      ##
+      # @return [Array<Symbol>] the available extractor names, with default extractor at index 0
+      def self.choices(default = Html2rss::ItemExtractors::DEFAULT_EXTRACTOR)
+        [default].concat(Html2rss::ItemExtractors::NAME_TO_CLASS.keys - [default])
+      end
+
       def initialize(prompt, state, **options)
         @prompt = prompt
         @state = state
@@ -22,12 +28,6 @@ module Html2rss
         print_extractor_result(full_extractor_options)
 
         prompt.yes?("Use extractor '#{extractor_name}'?") ? state.store(path, full_extractor_options) : ask
-      end
-
-      ##
-      # @return [Array<Symbol>] the available extractor names, with default extractor at index 0
-      def self.choices(default = Html2rss::ItemExtractors::DEFAULT_NAME)
-        [default].concat(Html2rss::ItemExtractors::NAME_TO_CLASS.keys - [default])
       end
 
       def print_extractor_result(extractor_options)
@@ -54,7 +54,7 @@ module Html2rss
       end
 
       def extractor_default?
-        extractor_name == Html2rss::ItemExtractors::DEFAULT_NAME
+        extractor_name == Html2rss::ItemExtractors::DEFAULT_EXTRACTOR
       end
 
       def extractor_html?
