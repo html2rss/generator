@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative './question'
-require_relative './item_extractor_question'
+require_relative 'question'
+require_relative 'item_extractor_question'
 
 module Html2rss
   module Generator

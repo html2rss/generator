@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative './channel_question'
-require_relative './items_selector_question'
-require_relative './selector_question'
+require_relative 'channel_question'
+require_relative 'items_selector_question'
+require_relative 'selector_question'
 
 module Html2rss
   module Generator

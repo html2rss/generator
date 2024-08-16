@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'fileutils'
-require_relative './files_and_paths'
+require_relative 'files_and_paths'
 
 module Html2rss
   module Generator
@@ -18,6 +18,26 @@ module Html2rss
       RSPEC
 
       attr_reader :prompt, :feed_config, :channel_url
+
+      def self.print_files(relative_yml_path, relative_spec_path)
+        PrintHelper.markdown <<~MARKDOWN
+          Created YAML file at:
+            `#{relative_yml_path}`
+
+          Created spec file at:
+            `#{relative_spec_path}`
+
+          Use this config to generate RSS with:
+            `bundle exec html2rss feed #{relative_yml_path}`
+        MARKDOWN
+      end
+
+      def self.create_file(file_path, content)
+        raise 'file exists already' if File.exist? file_path
+
+        FileUtils.mkdir_p File.dirname(file_path)
+        File.write(file_path, content)
+      end
 
       def initialize(prompt, state, **_options)
         @prompt = prompt
@@ -38,26 +58,6 @@ module Html2rss
         )
 
         create(fps)
-      end
-
-      def self.print_files(relative_yml_path, relative_spec_path)
-        PrintHelper.markdown <<~MARKDOWN
-          Created YAML file at:
-            `#{relative_yml_path}`
-
-          Created spec file at:
-            `#{relative_spec_path}`
-
-          Use this config to generate RSS with:
-            `bundle exec html2rss feed #{relative_yml_path}`
-        MARKDOWN
-      end
-
-      def self.create_file(file_path, content)
-        raise 'file exists already' if File.exist? file_path
-
-        FileUtils.mkdir_p File.dirname(file_path)
-        File.write(file_path, content)
       end
 
       private

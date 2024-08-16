@@ -7,6 +7,10 @@ module Html2rss
     class Question
       attr_reader :state, :prompt_options, :prompt
 
+      def self.validate(input:, **_opts)
+        input.to_s != ''
+      end
+
       def initialize(prompt, state, **options)
         @prompt = prompt
         @state = state
@@ -26,10 +30,6 @@ module Html2rss
 
         processed_input = process(validated_input)
         state.store(path, processed_input) if path
-      end
-
-      def self.validate(input:, **_opts)
-        input.to_s != ''
       end
 
       private
